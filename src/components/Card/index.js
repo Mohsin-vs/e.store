@@ -1,9 +1,11 @@
 
 import { Card, ListGroup, ListGroupItem } from "react-bootstrap"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 
 const ProductCard = ({ title, description, image, id }) => {
     const navigate = useNavigate();
+    const location = useLocation();
+    console.log("this is the current path", location);
     return (
         <>
             <Card style={{ width: '18rem' }} className="mt-3 mb-3">

@@ -8,14 +8,10 @@ const DetailPage = () => {
     const { pid } = useParams();
     const navigation = useNavigate();
     const [product, setProduct] = useState({});
-
-    // console.log(getProduct.data)
-    const filterData = async () => {
+    const filterData = () => {
         axios.get(`https://fakestoreapi.com/products/${pid}`).then((res) => {
             setProduct(res.data);
-            console.log(res, "jjhkh");
         })
-
     }
     useEffect(() => {
         filterData();
@@ -26,7 +22,7 @@ const DetailPage = () => {
             <Row  >
                 <Col md={{ span: 6, offset: 3 }}>
                     <Card>
-                        <Card.Img variant="top" src={product?.image} />
+                        <Card.Img variant="top" src={product?.image} height={300} width={100} />
                         <Card.Body>
                             <Card.Title>{product && product.title}</Card.Title>
                             <Card.Text>
