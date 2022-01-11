@@ -1,35 +1,20 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+
 import { Col, Container, Row } from "react-bootstrap";
 import { NavBar, Slider, ProductCard } from "../components/index";
+import { getData, passingFuntionToChild } from '../services/context'
 
-const Index = (props) => {
-    // console.log("aasdasdasdsadsadsfsdf", props);
+const Index = () => {
     const [product, setProduct] = useState({});
-    const getData = () => {
-        axios.get('https://fakestoreapi.com/products').then((res) => {
-            setProduct(res)
-
-        }).catch((err) => {
-            console.log(err);
-        });
-    }
 
     useEffect(() => {
-        getData();
+        getData(setProduct);
     }, [])
 
-    const passingFuntionToChild = (x) => {
-        axios.get(`https://fakestoreapi.com/products/category/${x}`).then((res) => {
-            setProduct(res)
-        }).catch((err) => {
-            console.log(err);
-        });
-    }
     return (
         <>
             {/* <NavBar handleCategoryData={handleCategoryData} /> */}
-            <NavBar passingFuntionToChild={passingFuntionToChild} allData={getData} />
+            <NavBar passingFuntionToChild={(x) => passingFuntionToChild(x, setProduct)} allData={() => getData(setProduct)} />
             <Slider />
             <Container>
                 <Row>

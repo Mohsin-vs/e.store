@@ -1,20 +1,15 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Navbar, Form, Button, Nav, NavDropdown, FormControl, Container } from 'react-bootstrap';
 
+import { getAllCategories } from '../../services/context';
+
 const NavBar = ({ passingFuntionToChild, allData }) => {
     const [category, setCategory] = useState([]);
-    const getAllCategories = () => {
-        axios.get(`https://fakestoreapi.com/products/categories`).then((navCategory) => {
-            setCategory(navCategory);
-        })
-    }
+
     useEffect(() => {
-        getAllCategories();
+        getAllCategories(setCategory);
     }, [])
-    // const checkSelectedvalue = (v) => {
-    //     // handleCategoryData(v)
-    // }
+
     const getSelectedItem = (passingSelectedItem) => {
         passingFuntionToChild(passingSelectedItem)
     }

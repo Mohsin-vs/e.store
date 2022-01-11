@@ -1,26 +1,22 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Card, Col, ListGroup, ListGroupItem, Row } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom"
+
+import { filterData } from "../../services/context";
 
 
 const DetailPage = () => {
     const { pid } = useParams();
     const navigation = useNavigate();
     const [product, setProduct] = useState({});
-    const filterData = () => {
-        axios.get(`https://fakestoreapi.com/products/${pid}`).then((res) => {
-            setProduct(res.data);
-        })
-    }
     useEffect(() => {
-        filterData();
+        filterData(pid, setProduct);
     }, [])
 
     return (
         <>
             <Row  >
-                <Col md={{ span: 6, offset: 3 }}>
+                <Col lg={{ span: 6, offset: 3 }}>
                     <Card>
                         <Card.Img variant="top" src={product?.image} height={300} width={100} />
                         <Card.Body>
@@ -28,7 +24,6 @@ const DetailPage = () => {
                             <Card.Text>
                                 {product?.description}
                             </Card.Text>
-
                             <ListGroup className="list-group-flush text-center">
                                 <ListGroupItem>${product?.price}</ListGroupItem>
                                 <ListGroupItem>Rating{product?.rating?.rate}</ListGroupItem>
